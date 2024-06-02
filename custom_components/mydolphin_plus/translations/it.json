@@ -1,0 +1,274 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configurazione MyDolphin Plus",
+        "description": "Configura i dettagli del tuo MyDolphin Plus",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_admin_credentials": "Credenziali amministratore non valide",
+      "invalid_server_details": "Dettagli server non validi",
+      "already_configured": "Un'integrazione con lo stesso nome \u00e8 gi\u00e0 stata configurata",
+      "missing_permanent_api_key": "Chiave API permanente mancante",
+      "corrupted_encryption_key": "Chiave di criptazione corrotta, rimuovere l'integrazione ed aggiungerla di nuovo"
+    }
+  },
+  "options": {
+    "step": {
+      "mydolphin_plus_additional_settings": {
+        "title": "Opzioni di MyDolphin Plus.",
+        "description": "Impostazione username e password.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_admin_credentials": "Credenziali amministratore non valide",
+      "invalid_server_details": "Dettagli server non validi",
+      "already_configured": "Un'integrazione con lo stesso nome \u00e8 gi\u00e0 stata configurata",
+      "corrupted_encryption_key": "Chiave di criptazione corrotta, rimuovere l'integrazione ed aggiungerla di nuovo"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "aws_broker": {
+        "name": "Broker AWS"
+      },
+      "weekly_scheduler": {
+        "name": "Programma settimanale"
+      }
+    },
+    "light": {
+      "led": {
+        "name": "LED"
+      }
+    },
+    "number": {
+      "led_intensity": {
+        "name": "Intensit\u00e0 LED"
+      },
+      "cycle_time_all": {
+        "name": "Tempo ciclo Normale"
+      },
+      "cycle_time_short": {
+        "name": "Tempo ciclo Rapido"
+      },
+      "cycle_time_floor": {
+        "name": "Tempo ciclo solo pavimento"
+      },
+      "cycle_time_water": {
+        "name": "Tempo ciclo Pelo Acqua"
+      },
+      "cycle_time_ultra": {
+        "name": "Tempo ciclo Ultra pulito"
+      },
+      "cycle_time_pickup": {
+        "name": "Tempo ciclo Raccolta"
+      }
+    },
+    "sensor": {
+      "rssi": {
+        "name": "RSSI"
+      },
+      "network_name": {
+        "name": "Nome rete"
+      },
+      "robot_type": {
+        "name": "Modello Robot"
+      },
+      "cycle_count": {
+        "name": "Numero di cicli"
+      },
+      "cycle_time_left": {
+        "name": "Tempo rimanente ciclo"
+      },
+      "filter_status": {
+        "name": "Stato filtro",
+        "state": {
+          "unknown": "Sconosciuto",
+          "empty": "Vuoto",
+          "partially_full": "Parzialmente pieno",
+          "getting_full": "Verso il pieno",
+          "almost_full": "Quasi pieno",
+          "full": "Pieno",
+          "fault": "Problema",
+          "not_available": "Non disponibile"
+        }
+      },
+      "robot_status": {
+        "name": "Stato del Robot",
+        "state": {
+          "finished": "Completato",
+          "fault": "Problema",
+          "notconnected": "Disconnesso",
+          "programming": "In programmazione",
+          "init": "Inizializzazione",
+          "scanning": "Ricognizione"
+        }
+      },
+      "power_supply_status": {
+        "name": "Stato unit\u00e0 principale",
+        "state": {
+          "on": "On",
+          "off": "Off",
+          "holddelay": "Fermo (in attesa)",
+          "holdweekly": "Fermo (Settimanale)",
+          "programming": "In programmazione",
+          "error": "Errore",
+          "cleaning": "In pulizia"
+        }
+      },
+      "status": {
+        "name": "Stato",
+        "state": {
+          "on": "On",
+          "off": "Off",
+          "holddelay": "Fermo (in attesa)",
+          "holdweekly": "Fermo (Settimanale)",
+          "programming": "In programmazione",
+          "notconnected": "Disconnesso",
+          "cleaning": "In pulizia",
+          "init": "*Checking Environment*"
+        }
+      },
+      "clean_mode": {
+        "name": "Modo pulizia",
+        "state": {
+          "all": "Fondo e pareti",
+          "short": "Veloce",
+          "floor": "Solo fondo",
+          "water": "Pelo acqua",
+          "ultra": "Ultra pulito",
+          "pickup": "*Pickup*"
+        }
+      },
+      "robot_error": {
+        "name": "Errore Robot",
+        "state": {
+          "0": "OK",
+          "1": "Voltaggio alimentazione DC",
+          "2": "Fuori dall'acqua",
+          "3": "Sovraccarico rotore",
+          "4": "Rotore 1 sotto carico",
+          "5": "Sovraccarico rotore",
+          "6": "Rotore 2 sotto carico",
+          "7": "Sovraccarico trazione",
+          "8": "Trazione 1 sotto carico",
+          "9": "Sovraccarico trazione",
+          "10": "Trazione 2 sotto carico",
+          "11": "Sensore fondo/parete",
+          "12": "voltaggio ingresso 23V DC",
+          "13": "Sensore fondo/parete 2",
+          "14": "Robot bloccato",
+          "15": "Surriscaldamento Alimentazione",
+          "16": "Sovraccarico Alimentazione",
+          "17": "Guasto motore Rotore 1",
+          "18": "Guasto motore Rotore 2",
+          "19": "Guasto motore Trazione 1",
+          "20": "Guasto motore Trazione 2",
+          "21": "Sovraccarico Servo motore",
+          "22": "Guasto motore Rotore 1",
+          "23": "Guasto motore Rotore 2",
+          "24": "Guasto motore Trazione 1",
+          "25": "Guasto motore Trazione 2",
+          "255": "OK"
+        },
+        "state_attributes": {
+          "instructions": {
+            "state": {
+              "3": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Pulire i detriti dall'ingresso del rotore.\n3. Smontare il compartimento del rotore se non è possibile raggiungere i detriti.\n4. Riassemblare il robot, ricollegare l'alimentazione e riprovare.\n5. Se non fosse sufficiente, contattate il vostro installatore",
+              "5": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Pulire i detriti dall'ingresso del rotore.\n3. Smontare il compartimento del rotore se non è possibile raggiungere i detriti.\n4. Riassemblare il robot, ricollegare l'alimentazione e riprovare.\n5. Se non fosse sufficiente, contattate il vostro installatore",
+              "7": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Rimuovere oggetti o altri impedimenti dal sistema di trazione.\n3. Ricollegare l'alimentazione e riprovare.\n4. Se non fosse sufficiente, contattate il vostro installatore",
+              "9": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Rimuovere oggetti o altri impedimenti dal sistema di trazione.\n3. Ricollegare l'alimentazione e riprovare.\n4. Se non fosse sufficiente, contattate il vostro installatore"
+            }
+          }
+        }
+      },
+      "power_supply_error": {
+        "name": "Errore Alimentazione",
+        "state": {
+          "0": "OK",
+          "1": "Voltaggio ingresso DC",
+          "2": "Fuori dall'acqua",
+          "3": "Sovraccarico rotore",
+          "4": "Rotore 1 sotto carico",
+          "5": "Sovraccarico rotore",
+          "6": "Rotore 2 sotto carico",
+          "7": "Sovraccarico trazione",
+          "8": "Trazione 1 sotto carico",
+          "9": "Sovraccarico trazione",
+          "10": "Trazione 2 sotto carico",
+          "11": "Sensore fondo/parete",
+          "12": "voltaggio ingresso 23V DC",
+          "13": "Sensore fondo/parete 2",
+          "14": "Robot bloccato",
+          "15": "Surriscaldamento Alimentazione",
+          "16": "Sovraccarico Alimentazione",
+          "17": "Guasto motore Rotore 1",
+          "18": "Guasto motore Rotore 2",
+          "19": "Guasto motore Trazione 1",
+          "20": "Guasto motore Trazione 2",
+          "21": "Sovraccarico Servo motore",
+          "22": "Guasto motore Rotore 1",
+          "23": "Guasto motore Rotore 2",
+          "24": "Guasto motore Trazione 1",
+          "25": "Guasto motore Trazione 2",
+          "255": "OK"
+        },
+        "state_attributes": {
+          "instructions": {
+            "state": {
+              "3": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Pulire i detriti dall'ingresso del rotore.\n3. Smontare il compartimento del rotore se non è possibile raggiungere i detriti.\n4. Riassemblare il robot, ricollegare l'alimentazione e riprovare.\n5. Se non fosse sufficiente, contattate il vostro installatore",
+              "5": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Pulire i detriti dall'ingresso del rotore.\n3. Smontare il compartimento del rotore se non è possibile raggiungere i detriti.\n4. Riassemblare il robot, ricollegare l'alimentazione e riprovare.\n5. Se non fosse sufficiente, contattate il vostro installatore",
+              "7": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Rimuovere oggetti o altri impedimenti dal sistema di trazione.\n3. Ricollegare l'alimentazione e riprovare.\n4. Se non fosse sufficiente, contattate il vostro installatore",
+              "9": "Eseguire le seguenti istruzioni:\n1. Staccare l'alimentazione.\n2. Rimuovere oggetti o altri impedimenti dal sistema di trazione.\n3. Ricollegare l'alimentazione e riprovare.\n4. Se non fosse sufficiente, contattate il vostro installatore"
+            }
+          }
+        }
+      }
+    },
+    "select": {
+      "led_mode": {
+        "name": "Modo LED",
+        "state": {
+          "1": "Lampeggio",
+          "2": "Sempre acceso",
+          "3": "Disco"
+        }
+      }
+    },
+    "vacuum": {
+      "vacuum": {
+        "state_attributes": {
+          "fan_speed": {
+            "state": {
+              "all": "Fondo e pareti",
+              "short": "Veloce",
+              "floor": "Solo fondo",
+              "water": "Pelo acqua",
+              "ultra": "Ultra pulito",
+              "pickup": "Recupero"
+            }
+          }
+        },
+        "state": {
+          "on": "Acceso",
+          "off": "Spento",
+          "holddelay": "In attesa (Ritardato)",
+          "holdweekly": "In attesa (Settimanale)",
+          "programming": "In programmazione",
+          "notconnected": "Disconnesso",
+          "cleaning": "In Pulizia",
+          "init": "Inizializzazione"
+        }
+      }
+    }
+  }
+}
