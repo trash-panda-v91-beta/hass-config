@@ -1,5 +1,5 @@
 - id: '1716162838350'
-  alias: Turn on lake power in the morning
+  alias: Turn on pond filtration in the morning
   description: ''
   trigger:
   - platform: time
@@ -7,12 +7,12 @@
   condition: []
   action:
   - type: turn_on
-    device_id: 9ae2908dbc928a0f46055c28f18d6e34
-    entity_id: 5f67031077c56a75d034874ef6a8e18d
+    device_id: 980747b6bfd7ff908d5f247c1f8f2670
+    entity_id: 238a78a4c5b45c426c88587cb255fa8e
     domain: switch
   mode: single
 - id: '1716162867316'
-  alias: Turn off lake power in the afternoon
+  alias: Turn off pond filtration in the afternoon
   description: ''
   trigger:
   - platform: time
@@ -20,7 +20,33 @@
   condition: []
   action:
   - type: turn_off
-    device_id: 9ae2908dbc928a0f46055c28f18d6e34
-    entity_id: 5f67031077c56a75d034874ef6a8e18d
+    device_id: 980747b6bfd7ff908d5f247c1f8f2670
+    entity_id: 238a78a4c5b45c426c88587cb255fa8e
+    domain: switch
+  mode: single
+- id: '1717940105957'
+  alias: Turn on boiler in the morning
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: c92516ce4e11f70523c2a8ce48edd9d0
+    entity_id: b2f520ed5556989e534330361c6099bb
+    domain: switch
+  mode: single
+- id: '1717940169228'
+  alias: Turn off boiler in the evening
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:00:00'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: c92516ce4e11f70523c2a8ce48edd9d0
+    entity_id: b2f520ed5556989e534330361c6099bb
     domain: switch
   mode: single
