@@ -9,6 +9,7 @@ from ipaddress import ip_address
 import os
 from typing import Any
 from urllib.parse import quote
+import threading
 
 import aiohttp
 from aiohttp import ClientTimeout, hdrs, web
@@ -20,7 +21,7 @@ from homeassistant.core import HomeAssistant
 from multidict import CIMultiDict
 from yarl import URL
 
-from .const import DOMAIN
+from .const import DOMAIN, CONF_SCRYPTED_NVR
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -64,6 +65,18 @@ class ScryptedView(HomeAssistantView):
         """Initialize a Hass.io ingress view."""
         self.hass = hass
         self._session = session
+        self.lit_core = asyncio.Future[str]()
+        self.entrypoint_js = asyncio.Future[str]()
+        self.entrypoint_html = asyncio.Future[str]()
+        hass.async_add_executor_job(lambda: self.load_files(session.loop))
+
+    def load_files(self, loop: asyncio.AbstractEventLoop):
+        lit_core = str(open(os.path.join(os.path.dirname(__file__), "lit-core.min.js")).read())
+        entrypoint_js = str(open(os.path.join(os.path.dirname(__file__), "entrypoint.js")).read())
+        entrypoint_html = str(open(os.path.join(os.path.dirname(__file__), "entrypoint.html")).read())
+        loop.call_soon_threadsafe(lambda: self.lit_core.set_result(lit_core))
+        loop.call_soon_threadsafe(lambda: self.entrypoint_js.set_result(entrypoint_js))
+        loop.call_soon_threadsafe(lambda: self.entrypoint_html.set_result(entrypoint_html))
 
     @lru_cache
     def _create_url(self, token: str, path: str) -> str:
@@ -97,9 +110,7 @@ class ScryptedView(HomeAssistantView):
         try:
             if path == "lit-core.min.js":
                 response = web.Response(
-                    body=open(
-                        os.path.join(os.path.dirname(__file__), "lit-core.min.js")
-                    ).read(),
+                    body=await self.lit_core,
                     headers={
                         "Content-Type": "text/javascript",
                         "Cache-Control": "no-store, max-age=0",
@@ -108,11 +119,7 @@ class ScryptedView(HomeAssistantView):
                 return response
 
             if path == "entrypoint.js":
-                body = str(
-                        open(
-                            os.path.join(os.path.dirname(__file__), "entrypoint.js")
-                        ).read()
-                ).replace("__DOMAIN__", DOMAIN).replace("__TOKEN__", token)
+                body = (await self.entrypoint_js).replace("__DOMAIN__", DOMAIN).replace("__TOKEN__", token)
                 response = web.Response(
                     body=body,
                     headers={
@@ -123,11 +130,11 @@ class ScryptedView(HomeAssistantView):
                 return response
 
             if path == "entrypoint.html":
-                body = str(
-                        open(
-                            os.path.join(os.path.dirname(__file__), "entrypoint.html")
-                        ).read()
-                ).replace("__DOMAIN__", DOMAIN).replace("__TOKEN__", token)
+                body = (await self.entrypoint_html).replace("__DOMAIN__", DOMAIN).replace("__TOKEN__", token)
+                entry: ConfigEntry = self.hass.data[DOMAIN][token]
+                if CONF_SCRYPTED_NVR in entry.data and entry.data[CONF_SCRYPTED_NVR]:
+                    body = body.replace("core", "nvr")
+
                 response = web.Response(
                     body=body,
                     headers={
@@ -154,7 +161,7 @@ class ScryptedView(HomeAssistantView):
     put = _handle
     delete = _handle
     patch = _handle
-    options = _handle
+    # options = _handle
 
     async def _handle_websocket(
         self, request: web.Request, token: str, path: str
@@ -170,7 +177,7 @@ class ScryptedView(HomeAssistantView):
             req_protocols = ()
 
         ws_server = web.WebSocketResponse(
-            protocols=req_protocols, autoclose=False, autoping=False
+            protocols=req_protocols, autoclose=False, autoping=False, max_msg_size=4194304 * 4
         )
         await ws_server.prepare(request)
 
@@ -191,6 +198,7 @@ class ScryptedView(HomeAssistantView):
             protocols=req_protocols,
             autoclose=False,
             autoping=False,
+            max_msg_size=4194304 * 4
         ) as ws_client:
             # Proxy requests
             await asyncio.wait(
@@ -272,6 +280,7 @@ def _init_header(request: web.Request) -> CIMultiDict | dict[str, str]:
             hdrs.SEC_WEBSOCKET_PROTOCOL,
             hdrs.SEC_WEBSOCKET_VERSION,
             hdrs.SEC_WEBSOCKET_KEY,
+            hdrs.HOST,
         ):
             continue
         headers[name] = value
