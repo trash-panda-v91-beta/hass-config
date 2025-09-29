@@ -1,1 +1,85 @@
-[]
+- id: '1757750258332'
+  alias: Turn Pond filtration in the morning
+  description: ''
+  triggers:
+  - trigger: time
+    at: 09:00:00
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      device_id: 980747b6bfd7ff908d5f247c1f8f2670
+  mode: single
+- id: '1757750379869'
+  alias: Turn off Pond filtration in the evening
+  description: ''
+  triggers:
+  - trigger: time
+    at: '16:00:00'
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 980747b6bfd7ff908d5f247c1f8f2670
+    entity_id: 5be2385aaeb57f386443ccd998679f2b
+    domain: light
+  mode: single
+- id: '1758296912207'
+  alias: Turn on entrance lights when motion detected
+  description: ''
+  use_blueprint:
+    path: iainsmacleod/advanced_motion_automation.yaml
+    input:
+      motion_sensors:
+      - binary_sensor.motion_sensor_1_ent_otd_occupancy
+      entity_target:
+        device_id:
+        - 8e036d59d4007dc71786ceea9c5298f6
+        - 8966f7fc949e860d3226f26d6156202b
+        - c5f24f544eefdd498dbd4c9223493ee6
+        - 1797cae213bdb43f3ad1d7b494550c00
+      brightness: 25
+      sun_condition: night
+- id: '1758297344671'
+  alias: Turn on lights in the evening when motion detected
+  description: ''
+  use_blueprint:
+    path: iainsmacleod/advanced_motion_automation.yaml
+    input:
+      motion_sensors:
+      - binary_sensor.motion_sensor_2_ent_otd_occupancy
+      entity_target:
+        device_id:
+        - 8e036d59d4007dc71786ceea9c5298f6
+        - 8966f7fc949e860d3226f26d6156202b
+        - a28c1668d047a02691ed76f3775bbbe0
+      brightness: 25
+      sun_condition: night
+- id: '1758297540503'
+  alias: Turn on patio light in the evening when motion detected
+  description: ''
+  use_blueprint:
+    path: iainsmacleod/advanced_motion_automation.yaml
+    input:
+      motion_sensors:
+      - binary_sensor.motion_sensor_pto_otd_occupancy
+      entity_target:
+        entity_id: light.lily
+      brightness: 30
+      sun_condition: night
+      use_custom_settings: true
+- id: '1758784346816'
+  alias: Turn off light strip in kids room
+  description: ''
+  triggers:
+  - trigger: time
+    at: 07:00:00
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: b1c53dabcd0c38f39ec5eaadb320464f
+  mode: single
