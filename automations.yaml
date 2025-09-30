@@ -83,3 +83,82 @@
     target:
       device_id: b1c53dabcd0c38f39ec5eaadb320464f
   mode: single
+- id: '1759249833587'
+  alias: Turn On Accumulation Tank Circulation Pump
+  description: Turn on accumulation tank circulation pump when heating
+  triggers:
+  - type: turned_on
+    device_id: eae27aaea958e1c73d64e0a69ad92843
+    entity_id: d35ab5a2f55ce1b1e116d2004e87e15e
+    domain: binary_sensor
+    trigger: device
+  - type: turned_on
+    device_id: 1f5c4e5917072cf88ed5eeac63dcae6e
+    entity_id: 2aa34c2ecc766e6706b32992f3e9d389
+    domain: switch
+    trigger: device
+  - type: turned_on
+    device_id: 6aeb9ca633372c477cb3e122eaac04ba
+    entity_id: 481fcb09748cfb1d0e11c5c8ce58ebd3
+    domain: switch
+    trigger: device
+  conditions:
+  - condition: device
+    type: is_off
+    device_id: 07e12b5a809d6f7b4c16f94800f61f97
+    entity_id: a4a7cafc8b04246debe59a6534c4e3a8
+    domain: switch
+  actions:
+  - type: turn_on
+    device_id: 07e12b5a809d6f7b4c16f94800f61f97
+    entity_id: a4a7cafc8b04246debe59a6534c4e3a8
+    domain: switch
+  mode: single
+- id: '1759250464399'
+  alias: Turn Off Accumulation Tank Circulation Pump
+  description: Turn off accumulation tank circulation pump when heating
+  triggers:
+  - type: turned_off
+    device_id: eae27aaea958e1c73d64e0a69ad92843
+    entity_id: d35ab5a2f55ce1b1e116d2004e87e15e
+    domain: binary_sensor
+    trigger: device
+  - type: turned_off
+    device_id: 1f5c4e5917072cf88ed5eeac63dcae6e
+    entity_id: 2aa34c2ecc766e6706b32992f3e9d389
+    domain: switch
+    trigger: device
+  - type: turned_off
+    device_id: 6aeb9ca633372c477cb3e122eaac04ba
+    entity_id: 481fcb09748cfb1d0e11c5c8ce58ebd3
+    domain: switch
+    trigger: device
+  conditions:
+  - condition: and
+    conditions:
+    - condition: device
+      type: is_on
+      device_id: 07e12b5a809d6f7b4c16f94800f61f97
+      entity_id: a4a7cafc8b04246debe59a6534c4e3a8
+      domain: switch
+    - type: is_off
+      condition: device
+      device_id: eae27aaea958e1c73d64e0a69ad92843
+      entity_id: d35ab5a2f55ce1b1e116d2004e87e15e
+      domain: binary_sensor
+    - condition: device
+      type: is_off
+      device_id: 1f5c4e5917072cf88ed5eeac63dcae6e
+      entity_id: 2aa34c2ecc766e6706b32992f3e9d389
+      domain: switch
+    - condition: device
+      type: is_off
+      device_id: 6aeb9ca633372c477cb3e122eaac04ba
+      entity_id: 481fcb09748cfb1d0e11c5c8ce58ebd3
+      domain: switch
+  actions:
+  - type: turn_off
+    device_id: 07e12b5a809d6f7b4c16f94800f61f97
+    entity_id: a4a7cafc8b04246debe59a6534c4e3a8
+    domain: switch
+  mode: single
