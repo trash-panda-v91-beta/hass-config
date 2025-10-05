@@ -120,8 +120,8 @@
   triggers:
   - type: turned_off
     device_id: eae27aaea958e1c73d64e0a69ad92843
-    entity_id: d35ab5a2f55ce1b1e116d2004e87e15e
-    domain: binary_sensor
+    entity_id: 9efadf55f35772ee324418d097047314
+    domain: switch
     trigger: device
   - type: turned_off
     device_id: 1f5c4e5917072cf88ed5eeac63dcae6e
@@ -141,11 +141,11 @@
       device_id: 07e12b5a809d6f7b4c16f94800f61f97
       entity_id: a4a7cafc8b04246debe59a6534c4e3a8
       domain: switch
-    - type: is_off
-      condition: device
+    - condition: device
+      type: is_off
       device_id: eae27aaea958e1c73d64e0a69ad92843
-      entity_id: d35ab5a2f55ce1b1e116d2004e87e15e
-      domain: binary_sensor
+      entity_id: 9efadf55f35772ee324418d097047314
+      domain: switch
     - condition: device
       type: is_off
       device_id: 1f5c4e5917072cf88ed5eeac63dcae6e
@@ -161,4 +161,37 @@
     device_id: 07e12b5a809d6f7b4c16f94800f61f97
     entity_id: a4a7cafc8b04246debe59a6534c4e3a8
     domain: switch
+  mode: single
+- id: '1759609505835'
+  alias: Set Eli state to kindergarten
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - calendar.elisa
+    attribute: message
+    to: Kindergarten
+  conditions: []
+  actions:
+  - action: device_tracker.see
+    metadata: {}
+    data:
+      dev_id: Elisa
+      location_name: Kindergarten Bezinka
+  mode: single
+- id: '1759611486749'
+  alias: Set Kids Status to Home
+  description: ''
+  triggers:
+  - trigger: calendar
+    entity_id: calendar.elisa
+    event: end
+    offset: 0:0:10
+  conditions: []
+  actions:
+  - action: device_tracker.see
+    metadata: {}
+    data:
+      dev_id: Elisa
+      location_name: home
   mode: single
